@@ -60,7 +60,7 @@ bootstrap = Bootstrap(app)
 db.init_app(app)
 
 
-# Forms defined
+# Forms are defined here
 class EditBookForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     author = StringField('Author', validators=[DataRequired()])
