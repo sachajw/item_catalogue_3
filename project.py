@@ -260,6 +260,9 @@ def add_new_book():
     form = CreateBookForm()
     if 'username' not in login_session:
         return redirect('/login')
+    if request.method == 'POST':
+        add_new_book = Book(book=request.form['book'], user_id=login_session['user_id'])
+        #add_new_book = Book(book=CreateBookForm['book'], user_id=login_session['user_id'])
     if form.validate_on_submit():
         book = Book(title=form.title.data,
                     author=form.author.data,
@@ -269,8 +272,8 @@ def add_new_book():
                     num_pages=form.num_pages.data,
                     pub_date=form.pub_date.data,
                     pub_name=form.pub_name.data)
-        db.session.add(book)
-        db.session.commit()
+        session.add(book)
+        session.commit()
         flash('book added successfully')
         return redirect(url_for('display_books'))
     return render_template('create_book.html', form=form)
@@ -278,15 +281,17 @@ def add_new_book():
 
 @app.route('/book/delete/<book_id>', methods=['GET', 'POST'])
 def delete_book(book_id):
-    book = session.query(Book).filter_by(id=book_id).one()
+    deletebook = session.query(Book).filter_by(id=book_id).one()
     if 'username' not in login_session:
         return redirect('/login')
+    if deletebook.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized to delete this book. Please create your own book if you want to delete.');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
-        session.delete(book)
+        session.delete(deletebook)
         session.commit()
         flash('book deleted successfully')
         return redirect(url_for('display_books'))
-    return render_template('delete_book.html', book=book, book_id=book.id)
+    return render_template('delete_book.html', deletebook=deletebook, book_id=book.id)
 
 
 @app.route('/book/edit/<book_id>', methods=['GET', 'POST'])
@@ -295,6 +300,8 @@ def edit_book(book_id):
     form = EditBookForm(obj=editedbook)
     if 'username' not in login_session:
         return redirect('/login')
+    if editedbook.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized to edit this book. Please create your own book.');}</script><body onload='myFunction()'>"     
     if form.validate_on_submit():
         editedbook.title = form.title.data
         editedbook.author = form.author.data
