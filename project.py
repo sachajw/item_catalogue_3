@@ -261,8 +261,8 @@ def add_new_book():
     if 'username' not in login_session:
         return redirect('/login')
     if request.method == 'POST':
-        add_new_book = Book(book=request.form['book'], user_id=login_session['user_id'])
-        #add_new_book = Book(book=CreateBookForm['book'], user_id=login_session['user_id'])
+        #add_new_book = Book(book=request.form['book'], user_id=login_session['user_id'])
+        add_new_book = Book(book=CreateBookForm['book'], user_id=login_session['user_id'])
     if form.validate_on_submit():
         book = Book(title=form.title.data,
                     author=form.author.data,
@@ -271,7 +271,8 @@ def add_new_book():
                     image=form.image.data,
                     num_pages=form.num_pages.data,
                     pub_date=form.pub_date.data,
-                    pub_name=form.pub_name.data)
+                    pub_name=form.pub_name.data,
+                    user_id=login_session['user_id'])
         session.add(book)
         session.commit()
         flash('book added successfully')
