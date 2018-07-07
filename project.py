@@ -59,6 +59,7 @@ db = SQLAlchemy()
 bootstrap = Bootstrap(app)
 db.init_app(app)
 
+
 # Forms are defined here
 class EditBookForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
@@ -83,8 +84,10 @@ class CreateBookForm(FlaskForm):
     pub_name = StringField('Publisher Name', validators=[DataRequired()])
     submit = SubmitField('Create')
 
+
 class DeleteBookForm(FlaskForm):
     delete = SubmitField('Delete')
+
 
 # Routes begin
 # Create anti-forgery state token
@@ -270,7 +273,7 @@ def add_new_book():
                     num_pages=form.num_pages.data,
                     pub_date=form.pub_date.data,
                     pub_name=form.pub_name.data)
-        book.user_id = login_session["user_id"]            
+        book.user_id = login_session["user_id"]
         session.add(book)
         session.commit()
         flash('book added successfully')
@@ -300,7 +303,7 @@ def edit_book(book_id):
     if 'username' not in login_session:
         return redirect('/login')
     if editedbook.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not authorized to edit this book. Please create your own book.');}</script><body onload='myFunction()'>"     
+        return "<script>function myFunction() {alert('You are not authorized to edit this book. Please create your own book.');}</script><body onload='myFunction()'>"
     form = EditBookForm(obj=editedbook)
     if form.validate_on_submit():
         editedbook.title = form.title.data
