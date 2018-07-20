@@ -28,7 +28,7 @@ The project contains the following files and folders:
 - Install Oracle Virtualbox from [here](https://www.virtualbox.org/wiki/Downloads)
 - Install Vagrant from [here](https://www.vagrantup.com/downloads.html)
 - Use this link to configure and run the virtual machine     [here](https://classroom.udacity.com/nanodegrees/nd004/parts/8d3e23e1-9ab6-47eb-b4f3-d5dc7ef27bf0/modules/bc51d967-cb21-46f4-90ea-caf73439dc59/lessons/5475ecd6-cfdb-4418-85a2-f2583074c08d/concepts/14c72fe3-e3fe-4959-9c4b-467cf5b7c3a0)
-- Download the data from [here](https://github.com/sachajw/item_catalog_2.git) and copy the ****item_catalogue_2**** folder into the Vagrant directory
+- Download the data from [here](https://github.com/sachajw/item_catalogue_3.git) and copy the ****item_catalogue_3**** folder into the Vagrant directory
 - Navigate to the Vagrant folder on the virtual machine
 - Run pip install -r requirements.txt (this installs all the required packages)
 - Run ****database_setup.py**** (this will create the sqlite3 database with all the relevant tables)
